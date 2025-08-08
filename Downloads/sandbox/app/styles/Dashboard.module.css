@@ -1,13 +1,4 @@
-:root {
-  --primary: #1976d2;
-  --accent: #4caf50;
-  --danger: #f44336;
-  --bg: #f7fafd;
-  --sidebar-bg: #f4f4f4;
-  --card-bg: #fff;
-  --border: #e0e0e0;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
+/* Remove :root for Next.js CSS Modules compatibility. Move variables to a global CSS file instead. */
 
 .dashboard {
   display: flex;
