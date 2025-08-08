@@ -1,0 +1,9 @@
+.appName {
+  text-align: center;
+  color: #1976d2;
+  font-weight: 800;
+  margin-bottom: 12px;
+  font-size: 2.1rem;
+  letter-spacing: 0.01em;
+  font-family: 'Inter', Arial, sans-serif;
+}
