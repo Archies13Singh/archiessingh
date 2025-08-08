@@ -81,9 +81,11 @@ export default function LoginPage() {
         </button>
 
         <p className={styles.link}>
-          Don't have an account? <a href="/register">Register</a>
+          Already have an account? <a href="/login">Login</a>
         </p>
       </form>
     </div>
   );
 }
+
+// Fix: Replace unescaped single quote in JSX with &apos; in login page

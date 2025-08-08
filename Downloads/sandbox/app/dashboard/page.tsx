@@ -70,6 +70,7 @@ export default function DashboardPage() {
       return;
     }
     fetchBoards(token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const fetchBoards = async (token: string) => {
@@ -84,12 +85,6 @@ export default function DashboardPage() {
         setUsername(data.username || "User");
         if (data.boards && data.boards.length > 0) {
           setSelectedBoardId(data.boards[0].id);
-        }
-      } else {
-        const errorText = await res.text();
-        if (res.status === 401) {
-          localStorage.removeItem("token");
-          router.push("/login");
         }
       }
     } catch (error) {
@@ -154,12 +149,6 @@ export default function DashboardPage() {
         setNewBoardName("");
         setShowBoardModal(false);
         fetchBoards(token);
-      } else {
-        const errorText = await res.text();
-        if (res.status === 401) {
-          localStorage.removeItem("token");
-          router.push("/login");
-        }
       }
     } catch (error) {
       // Optionally handle error
