@@ -1,11 +1,11 @@
-import { db } from "@/data/db";
+import { db, Task } from "@/data/db";
 import { verify } from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-function verifyToken(token: string | undefined): any {
+function verifyToken(token: string | undefined): { id: number } | null {
   if (!token) return null;
   try {
-    const decoded = verify(token, process.env.NEXT_PUBLIC_SECRET_TOKEN);
+    const decoded = verify(token, process.env.NEXT_PUBLIC_SECRET_TOKEN as string) as { id: number };
     return decoded;
   } catch {
     return null;
@@ -30,8 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { boardId, title, description, status, dueDate } = req.body;
     if (!boardId || !title) return res.status(400).json({ error: "Board ID and title required" });
     // Find max position in this board for this user
-    const maxPos = Math.max(0, ...db.tasks.filter(t => t.boardId === Number(boardId) && t.userId === user.id).map(t => t.position || 0));
-    const newTask = {
+    const maxPos = Math.max(0, ...db.tasks.filter(t => t.boardId === Number(boardId) && t.userId === user.id).map((t: Task & { position?: number }) => t.position || 0));
+    const newTask: Task & { position: number } = {
       id: Date.now(),
       boardId: Number(boardId),
       title,
@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (description !== undefined) task.description = description;
     if (status !== undefined) task.status = status;
     if (dueDate !== undefined) task.dueDate = dueDate;
-    if (position !== undefined) task.position = position;
+    if (position !== undefined && "position" in task) (task as Task).position = position;
     if (boardId !== undefined) task.boardId = Number(boardId);
     return res.status(200).json({ task });
   }

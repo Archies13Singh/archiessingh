@@ -2,14 +2,14 @@ import { db } from "@/data/db"; // in-memory db
 import { verify } from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-function verifyToken(token: string | undefined): any {
+function verifyToken(token: string | undefined): { userId: number; username: string } | null {
   if (!token) {
     return null;
   }
   try {
-    const decoded = verify(token, process.env.NEXT_PUBLIC_SECRET_TOKEN);
+    const decoded = verify(token, process.env.NEXT_PUBLIC_SECRET_TOKEN as string) as { userId: number; username: string };
     return decoded;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

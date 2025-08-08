@@ -70,7 +70,6 @@ export default function DashboardPage() {
       return;
     }
     fetchBoards(token);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const fetchBoards = async (token: string) => {
@@ -87,7 +86,7 @@ export default function DashboardPage() {
           setSelectedBoardId(data.boards[0].id);
         }
       }
-    } catch (error) {
+    } catch {
       // Optionally handle error
     } finally {
       setLoading(false);
@@ -103,7 +102,7 @@ export default function DashboardPage() {
         const data = await res.json();
         setTasks(data.tasks || []);
       }
-    } catch (error) {
+    } catch {
       // Handle error silently
     }
   };
@@ -150,7 +149,7 @@ export default function DashboardPage() {
         setShowBoardModal(false);
         fetchBoards(token);
       }
-    } catch (error) {
+    } catch {
       // Optionally handle error
     }
   };
@@ -190,7 +189,7 @@ export default function DashboardPage() {
         });
         fetchTasks(selectedBoardId, token);
       }
-    } catch (error) {
+    } catch {
       // Optionally handle error
     }
   };

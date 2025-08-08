@@ -13,6 +13,7 @@ export interface Task {
   dueDate?: string;
   createdAt: string;
   userId: number;
+  position?: number;
 }
 
 export interface Board {
